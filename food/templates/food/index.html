@@ -13,7 +13,7 @@
 		{% for item in itemlist %} 
         <ul>
             <li>
-            	<a href="/food/detail/{{ item.id }}/">{{item.id}} -- {{item.item_name}}</a>
+            	<a href="{% url 'detail' item.id %}">{{item.id}} -- {{item.item_name}}</a>
             </li>
         </ul>
         {% endfor %}
