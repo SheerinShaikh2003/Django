@@ -10,13 +10,12 @@
 	<body>
 		<h1>This is an index page</h1>
 
-		{%for item in itemlist%} 
-
+		{% for item in itemlist %} 
         <ul>
             <li>
-            {{item.id}} -- {{item.item_name}} 
+            	<a href="/food/detail/{{ item.id }}/">{{item.id}} -- {{item.item_name}}</a>
             </li>
         </ul>
-        {%endfor%}
+        {% endfor %}
 	</body>
 </html>
