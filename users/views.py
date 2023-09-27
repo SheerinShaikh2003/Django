@@ -15,10 +15,12 @@ def register(request):
             username = form.cleaned_data.get('username')
             messages.success(
                 request,
-                'Welcome {}, your account has been sucessfully created !!'.format(username)
+                'Welcome {}, your account has been sucessfully created.Now you may log in !!'.format(username)
+
             )
             form.save()
-            return redirect('food:index')
+            return redirect('login')
+        
     else:
         form = RegisterForm()
 
@@ -35,14 +37,30 @@ def login_view(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if user is None:
+            messages.success(
+                request,
+                'Invalid Login!! Try again'
+            )
+            return redirect('login')    
+
+        elif user.is_superuser:
             login(request, user)
             messages.success(
                 request,
                 'Welcome {} you have been successfully logged in !!'.format(request.user.username)
             )
             return redirect('food:index')
-
+        
+        elif user is not None:
+            login(request, user)
+            messages.success(
+                request,
+                'Welcome {} you have been successfully logged in !!'.format(request.user.username)
+            )
+            return redirect('food:index')
+        
+       
     return render(request, 'users/login.html')
 
 
@@ -51,4 +69,5 @@ def logout_view(request):
     logout(request)
     return redirect('food:index')
 
-    
+def profilepage(request):
+    return render(request,'users/profile.html')
