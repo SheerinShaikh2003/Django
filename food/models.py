@@ -19,5 +19,5 @@ class Item(models.Model):
       max_length=500,
       default="https://cdn-icons-png.flaticon.com/512/1377/1377194.png")
     
-    def _str_(self):
+    def __str__(self):
         return self.item_name
