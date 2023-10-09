@@ -3,9 +3,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from food.models import Item
 from food.forms import ItemForm
+from django.views.generic.list import ListView
 
 # Create your views here.
-
+#--------------------------------------------------------------
+# funtion based index view
+#---------------------------------------------------------
 def index(request):
     itemlist = Item.objects.all()
     
@@ -14,6 +17,15 @@ def index(request):
     }
     return render(request,'food/index.html', context)
 
+#class based index view
+class IndexClassView(ListView):
+    model = Item
+    context_object_name = 'itemlist'
+    template_name ='food/index.html'
+    
+
+# funtion based detail view
+#------------------------------------------------------------------
 def detail(request, item_id):
     item = Item.objects.get(pk=item_id)
     
@@ -23,7 +35,8 @@ def detail(request, item_id):
     
     return render(request, 'food/detail.html', context)
 
-
+#funtion based create view
+#-------------------------------------------------------------------
 def create_item(request):
     form = ItemForm(request.POST or None)
 
@@ -36,7 +49,8 @@ def create_item(request):
     }
 
     return render(request, 'food/item-form.html', context)
-
+#funtion based update item view
+#------------------------------------------------------------------------
 def update_item(request, id):
     item = Item.objects.get(pk=id)
     form = ItemForm(request.POST or None ,instance=item)
@@ -50,6 +64,9 @@ def update_item(request, id):
         return redirect('food:index')
 
     return render(request, 'food/item-form.html',context)
+
+ #funtion based delete item view
+#-----------------------------------------------------------------------   
 
 def delete_item(request, id):
     item = Item.objects.get(pk=id)
