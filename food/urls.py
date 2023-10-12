@@ -6,10 +6,10 @@ app_name = 'food'
 urlpatterns = [
     # funtion based index view
 #--------------------------------------
-    # path('home/', views.index, name='index'),
+    path('home/', views.index, name='index'),
     # class based index view
 #-----------------------------------------------------------
-    path('home/', views.IndexClassView.as_view(), name='index'),
+    # path('home/', views.IndexClassView.as_view(), name='index'),
     # funtion based detail view
 #------------------------------------------------------------------
     # path('detail/<int:item_id>/', views.detail, name = 'detail'),
@@ -22,7 +22,7 @@ urlpatterns = [
     # path('add/', views.create_item, name='create_item'),
     #class  based create item view
 #-----------------------------------------------------------------------------
-    path('add/',views .CreateItem.as_view(), name ='create_item'),
+    path('add/',views.CreateItem.as_view(), name ='create_item'),
     #funtion based update item view
 #----------------------------------------------------------
     path('update/<int:id>/', views.update_item, name='update_item'),
