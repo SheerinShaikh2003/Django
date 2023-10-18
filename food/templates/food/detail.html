@@ -16,24 +16,53 @@
 		<h3 style="font-style: italic">${{ item.item_price}}</h3>
 	</div>
 	<div class="col-md-3 offset-md-1">
-		<a
-			href="{% url 'food:update_item' item.id %}"
-			style="width: 80px"
-			class="btn btn-warning"
-			>Edit
-		</a>
-		<a
-			href="{% url 'food:delete_item' item.id %}"
-			style="width: 80px"
-			class="btn btn-danger"
-			>Delete
-		</a>
-		<a
-			href="{% url 'food:index' %}"
-			style="width: 80px"
-			class="btn btn-success"
-			>Back
-		</a>
+		{% if user.is_superuser %}
+			<a
+				href="{% url 'food:update_item' item.id %}"
+				style="width: 80px"
+				class="btn btn-warning"
+				>Edit
+			</a>
+			<a
+				href="{% url 'food:delete_item' item.id %}"
+				style="width: 80px"
+				class="btn btn-danger"
+				>Delete
+			</a>
+			<a
+				href="{% url 'food:index' %}"
+				style="width: 80px"
+				class="btn btn-success"
+				>Back
+		{% elif user.is_authenticated and user.profile.user_type == 'Rest' %}	
+			<a
+				href="{% url 'food:update_item' item.id %}"
+				style="width: 80px"
+				class="btn btn-warning"
+				>Edit
+			</a>
+			
+			<a
+				href="{% url 'food:index' %}"
+				style="width: 80px"
+				class="btn btn-success"
+				>Back	
+			</a>
+		{% elif user.is_authenticated and user.profile.user_type == 'Rest' %}	
+			<a
+				href="#"
+				style="width: 80px"
+				class="btn btn-warning"
+				>Order
+			</a>
+			
+			<a
+				href="{% url 'food:index' %}"
+				style="width: 80px"
+				class="btn btn-success"
+				>Back	
+			</a>
+		{% endif %}		
 	</div>
 </div>
 

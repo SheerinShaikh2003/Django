@@ -2,7 +2,7 @@
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from food.models import Item
+from food.models import Item, History
 from food.forms import ItemForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -80,6 +80,16 @@ class CreateItem(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+
+        Obj_History = History(
+                user_name = self.request.user.username,
+                prod_ref = form.instance.prod_code,
+                item_name = self.request.POST.get('item_name'),      # form.instance.item_name
+                op_type = 'Created'
+            )
+
+        Obj_History.save()
+
         return super().form_valid(form)
         
 
@@ -95,6 +105,17 @@ def update_item(request, id):
 
     if form.is_valid():
         form.save()
+
+        
+        Obj_History = History(
+            user_name = request.user.username,
+            prod_ref = form.instance.prod_code,
+            item_name = request.POST.get('item_name'),      # form.instance.item_name
+            op_type = 'Updated'
+        )
+
+        Obj_History.save()
+
         return redirect('food:index')
 
     return render(request, 'food/item-form.html',context)
@@ -110,6 +131,16 @@ def delete_item(request, id):
     }
 
     if request.method == 'POST':
+        
+        Obj_History = History(
+            user_name = request.user.username,
+            prod_ref = item.prod_code,
+            item_name = item.item_name,
+            op_type = 'Deleted'
+        )
+
+        Obj_History.save()
+
         item.delete()
         return redirect('food:index')
 
