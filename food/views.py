@@ -2,12 +2,14 @@
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from food.models import Item, History
+from food.models import Item
 from food.forms import ItemForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
+from food.models import History
+from users.models import CusOrders
 # Create your views here.
 #--------------------------------------------------------------
 # funtion based index view
@@ -45,10 +47,24 @@ def detail(request, item_id):
     hist = History.objects.filter(
         prod_ref = item.prod_code
     )
+    obj_Cusord = CusOrders.objects.all()
+    # restaurant and admin
+    if request.user.profile.user_type == 'Rest' or request.user.profile.user_type == 'Admin':
+        Obj_CusOrd = CusOrders.objects.filter(
+            prod_code = item.prod_code
+        )
 
+    # customer
+    elif request.user.profile.user_type == 'Cust':
+        Obj_CusOrd = CusOrders.objects.filter(
+            prod_code = item.prod_code,
+            user = request.user.username
+        )
+    
     context = {
         'item':item,
-        'hist':hist
+        'hist':hist,
+        'oco':obj_Cusord
     }
     
     return render(request, 'food/detail.html', context)
