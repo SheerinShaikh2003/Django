@@ -183,29 +183,30 @@ def delete_crf(request, details_id, crf_id):
 
     return render(request, 'users/crf_del.html', context)
 
-# def Payment(request, amt, qty):
+def Payment(request, amt, qty):
     
-#     context = {
-#         'amt': amt,
-#         'qty': qty,
-#         'tot': amt * qty
-#     }
+    context = {
+        'amt': amt,
+        'qty': qty,
+        'tot': amt * qty
+    }
     
-#     return render(request, 'users/payment.html', context)
+    return render(request, 'users/payment.html', context)
 
 
-# def OnApprove(request):
+def OnApprove(request):
     
-#     if request.method == 'POST':
-#         body = json.loads(request.body)
-#         print(body)
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        print(body)
         
-#         context = {
+        context = {
             
-#         }
+        }
         
-#         return JsonResponse(context)
+        return JsonResponse(context)
     
     
-# def PaymentSuccess(request):
-#     return render(request, 'users/pymtsuccess.html')
+def PaymentSuccess(request):
+    
+    return render(request, 'users/pymtsuccess.html')
