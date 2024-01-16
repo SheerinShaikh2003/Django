@@ -1,11 +1,73 @@
 {% extends 'food/base.html' %}
 
 {% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Mark in Circle</title>
+    <style>
+       
+        .circle {
+            width: 150px;
+            height: 150px;
+            background-color: #4caf50; /* Green color for success */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-<h1>This is the payment success page</h1>
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 40%;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
 
-<a href="{% url 'food:index' %}" class="btn btn-dark">
-    Back to Home
-</a>
+        .checkmark::before {
+            content: '\2713'; /* Unicode checkmark character */
+            font-size: 50px;
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="card">
+                    <div class="card-header text-white bg-dark">
+                        <div class="card-title offset-md-1">
+                            <h4>Payment Successfully Done..</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <br>
+                        <div class="circle">
+                            <div class="checkmark"></div>
+                        </div><br>
+    
+                        <a href="{% url 'food:index' %}" class="btn btn-dark">
+                            Back to Home
+                        </a>
+                    
+                    </div>    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</center>
+    
+</body>
+</html>
+
 
 {% endblock %}
