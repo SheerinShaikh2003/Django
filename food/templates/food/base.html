@@ -13,33 +13,40 @@
 			rel="stylesheet"
 			href="{% static 'food/style.css' %}" />
 		{% endcomment %}
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-			crossorigin="anonymous" />
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
 			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 			crossorigin="anonymous"></script>
-		<script src="https://www.paypal.com/sdk/js?client-id=AWpVGwtslJ_FF4cqTORdFmuqR6QU7pqbiTSmKQC7ON-TyVdJFrlPKojLDkedTtt-IlZE8ZrNh0V1imRL&currency=USD"></script>
+		<script
+			src="https://www.paypal.com/sdk/js?client-id=AWpVGwtslJ_FF4cqTORdFmuqR6QU7pqbiTSmKQC7ON-TyVdJFrlPKojLDkedTtt-IlZE8ZrNh0V1imRL&currency=USD"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-dark bg-dark">
+			<a class="navbar-brand" href="{% url 'food:index' %}">
+            <img src="https://img.freepik.com/free-vector/food-drink-hand-drawn-flat-healthy-food-logo_23-2149632256.jpg" width="150" height="100" alt="Your Logo">
+        	</a>
 			<a
 				href="{% url 'food:index' %}"
 				class="navbar-brand"
 				style="font-size: 40px; font-style: italic">
-				Delicious
+				<!-- Delicious -->
 			</a>
 
 
 			<!-- for search functionality -->
-			<form action="{% url 'food:index' %}" method="GET">
+			<form class="form-search text-center" action="{% url 'food:index' %}" method="GET">
 				{% csrf_token %}
-				<span><b style="color:white">Search:</b></span>
-				<input type="search" name="item_name">
-				<button type="submit">Search</button>
+				<span><b style="color:white"></b></span>
+				<input type="text" class="form-control" placeholder="Search...">
+				<button class="btn btn-outline-secondary" type="submit">
+					<i class="fas fa-search"></i>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+					  </svg></button>
 			</form>
 
 			<div class="navbar">
