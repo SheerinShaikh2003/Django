@@ -1,0 +1,16 @@
+{% extends 'food/base.html' %}
+
+{% block body %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+       
+        <!-- Add the delete button -->
+        <a href="{% url 'users:delete_order' item.id obj.order_id %}" class="btn btn-danger btn-sm offset-md-1">
+            Delete Order
+        </a>
+    </form>
+
+  
+{% endblock %}

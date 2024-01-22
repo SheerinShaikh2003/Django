@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from users.forms import RegisterForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from users.models import CusOrders, CusRatingFeedback
-from users.forms import CusOrdersUpd, CusRatFeedForm
+from users.forms import CusOrdersUpd, CusRatFeedForm,UserProfileForm
 from django.http import JsonResponse
 import json
 from django.core.mail import send_mail
@@ -135,6 +135,19 @@ def update_orders(request, id, upd_order_id):
     
     return render(request,'users/orders_upd.html', context)
 
+def delete_order(request, item_id, order_id):
+    # Get the order object
+    order = get_object_or_404(CusOrders, order_id=order_id)
+
+    # Check if the user has the permission to delete the order
+    if request.user.profile.user_type == 'Cust' and request.user.username == order.user:
+        # Delete the order
+        order.delete()
+        return redirect('food:detail', item_id=item_id)
+    else:
+        # If the user does not have permission, you may want to handle this case appropriately,
+        # such as showing an error message or redirecting to a different page.
+        return redirect('food:detail', item_id=item_id)
 
 def CusRatFeed(request, it_id, pc):
     
@@ -210,3 +223,23 @@ def OnApprove(request):
 def PaymentSuccess(request):
     
     return render(request, 'users/pymtsuccess.html')
+
+
+
+
+def edit_profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('users:edit_profile')
+        else:
+            messages.error(request, 'Error updating profile. Please correct the errors.')
+
+    else:
+        form = UserProfileForm(instance=user.profile)
+
+    return render(request, 'users/edit_profile.html', {'form': form})

@@ -1,0 +1,54 @@
+{% extends "food/base.html" %}
+
+{% block body %}
+
+<br><br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card bg-light">
+                <div class="card-header text-white bg-dark">
+                    <div class="card-title offset-md-0">
+                        Edit Profile
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Display form errors if any -->
+                        {% if form.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Error!</strong> Please correct the following errors.
+                                {% for error in form.errors %}
+                                    {% for message in form.errors.error %}
+                                        <ul>
+                                            <li>{{ message }}</li>
+                                        </ul>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <!-- Display success message if any -->
+                        {% if success_message %}
+                            <div class="alert alert-success" role="alert">
+                                {{ success_message }}
+                            </div>
+                        {% endif %}
+                        
+
+                        <!-- Form fields -->
+                        {{ form }}
+                        
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

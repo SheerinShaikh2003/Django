@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from users.models import CusOrders, CusRatingFeedback
+from users.models import CusOrders, CusRatingFeedback,UserProfile
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -21,7 +21,7 @@ def index(request):
         itemlist = Item.objects.all()
         
         #for search functionality
-        item_name = request.GET.get('item_name')
+        item_name = request.POST.get('item_name')
         if item_name != '' and item_name is not None:
             itemlist = Item.objects.filter(item_name__icontains=item_name)
             
@@ -34,7 +34,7 @@ def index(request):
         itemlist = Item.objects.filter(for_user=request.user.username)
         
         #for search functionality
-        item_name = request.GET.get('item_name')
+        item_name = request.POST.get('item_name')
         if item_name != '' and item_name is not None:
             itemlist = Item.objects.filter(item_name__icontains=item_name)
     
@@ -42,7 +42,7 @@ def index(request):
         itemlist = Item.objects.all()
         
         #for search functionality
-        item_name = request.GET.get('item_name')
+        item_name = request.POST.get('item_name')
         if item_name != '' and item_name is not None:
             itemlist = Item.objects.filter(item_name__icontains=item_name)
         
@@ -50,7 +50,7 @@ def index(request):
         itemlist = Item.objects.all()
         
         #for search functionality
-        item_name = request.GET.get('item_name')
+        item_name = request.POST.get('item_name')
         if item_name != '' and item_name is not None:
             itemlist = Item.objects.filter(item_name__icontains=item_name)
     

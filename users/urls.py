@@ -8,7 +8,10 @@ urlpatterns = [
     
     #updating customer orders
     path('upd_orders/<int:id>/<int:upd_order_id>', views.update_orders, name='upd_orders'),
-    
+
+    # delete customer order
+    path('delete_order/<int:item_id>/<int:order_id>/',views.delete_order, name='delete_order'),
+
     #customer rating feedback
     path('crf/<int:it_id>/<int:pc>', views.CusRatFeed, name='CusRatFeed'),
     
@@ -26,4 +29,7 @@ urlpatterns = [
     
     # paypal payment success
     path('ps/', views.PaymentSuccess, name='ps'),
+
+    # edit profile
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
 ]

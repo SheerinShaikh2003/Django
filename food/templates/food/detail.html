@@ -103,8 +103,8 @@
 			<div class="row mb-1">
 				<div class="col-md-8 offset-md-2 bg-success text-white">
 					<div class="row">
-						<div class="col-md-2 text-left">{{ obj.order_id }}</div>
-						<div class="col-md-2 text-left">{{ obj.prod_code }}</div>
+						<div class="col-md-1 text-left">{{ obj.order_id }}</div>
+						<div class="col-md-1 text-left">{{ obj.prod_code }}</div>
 						<div class="col-md-2 text-left">{{ obj.quantity }}</div>
 						<div class="col-md-2 text-left">{{ obj.user }}</div>
 						<div class="col-md-2 text-left">{% if user.profile.user_type == 'Cust' %}
@@ -113,10 +113,21 @@
 							</a>
 							{% endif %}
 						</div>
-						<div class="col-md-2 text-left">{% if user.profile.user_type == 'Cust' %}
+						<div class="col-md-2 text-left">
+							{% if user.profile.user_type == 'Cust' %}
 							<a class="btn btn-primary btn-sm" href="{% url 'users:buy' item.item_price obj.quantity %}">
 								Buy Now
 							</a>
+							{% endif %}
+						</div>
+						<div class="col-md-2 text-left">
+							{% if user.profile.user_type == 'Cust' %}
+							<form method="post" action="{% url 'users:delete_order' item.id obj.order_id %}">
+								{% csrf_token %}
+								<button type="submit" class="btn btn-danger btn-sm">
+									Delete
+								</button>
+							</form>
 							{% endif %}
 						</div>
 					</div>

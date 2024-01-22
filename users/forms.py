@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from users.models import CusOrders, CusRatingFeedback
+from users.models import CusOrders, CusRatingFeedback,UserProfile
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -11,6 +11,13 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ['username','first_name', 'last_name', 'email','password1', 'password2']
         
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['image', 'location']  # Include other fields as needed
+
 
 class CusOrdersUpd(forms.ModelForm):
     class Meta:
